@@ -2,6 +2,7 @@ package praeterii.pixels;
 
 import java.io.File;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,14 +15,14 @@ import android.widget.Toast;
 import praeterii.pixele.R;
 
 public class SaveTask extends AsyncTask<Void, Void, Boolean> {
-	String name;
-	int width, height;
-	PixelArt data;
-	ProgressDialog dialog;
-	File location;
-	File file;
-	boolean export;
-	boolean share;
+	private String name;
+	private int width, height;
+	private PixelArt data;
+	private ProgressDialog dialog;
+	private File location;
+	private File file;
+	private boolean export;
+	private boolean share;
 	PixelArtEditor context;
 	
 	public SaveTask(String name, int width, int height, PixelArt data, PixelArtEditor context) {
@@ -60,20 +61,25 @@ public class SaveTask extends AsyncTask<Void, Void, Boolean> {
 		try {
 			Bitmap image;
 			if (width < 0 && height < 0)
-				image = data.render(context);
+				image = data.render();
 			else {
 				if (width < 0)
 					width = (height * data.width) / data.height;
 				if (height < 0) 
 					height = (width * data.height) / data.width;
-				image = data.render(context, width, height);
+				image = data.render(width, height);
 			}
 			
 			StorageUtils.saveFile(name, file, image, context, !share && !export);
 			ArtExtras.saveExtras(context, data, name);
 			
 			if (share || export) {
-				new MediaScanTask().execute();
+			    context.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new MediaScanTask().execute();
+                    }
+                });
 			}
 			return true;
 			
@@ -85,7 +91,7 @@ public class SaveTask extends AsyncTask<Void, Void, Boolean> {
 
 	}
 	
-	public class MediaScanTask extends AsyncTask<String, Void, Void> {		
+	public class MediaScanTask extends AsyncTask<String, Void, Void> {
 		@Override
 		protected Void doInBackground(String... params) {
 			// Tell the media scanner about the new file so that it is

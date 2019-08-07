@@ -42,7 +42,7 @@ public class ArtListFragment extends Fragment {
 	}
 
 	public interface ArtItemSelectedListener {
-		public void onArtItemSelected(ArtElement element);
+		void onArtItemSelected(ArtElement element);
 	}
 
 	GridView gridview;
@@ -85,18 +85,18 @@ public class ArtListFragment extends Fragment {
 				add(e);
 		}
 
-		public ArtAdapter(Context context, int textViewResourceId) {
+		ArtAdapter(Context context, int textViewResourceId) {
 			super(context, textViewResourceId);
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if (convertView == null) {
-				convertView = getLayoutInflater(getArguments()).inflate(R.layout.artlistitem, null);
+				convertView = getActivity().getLayoutInflater().inflate(R.layout.artlistitem, null);
 			}
 			ArtElement element = getItem(position);
-			ImageView image = (ImageView) convertView.findViewById(R.id.thumb);
-			TextView title = (TextView) convertView.findViewById(R.id.title);
+			ImageView image = convertView.findViewById(R.id.thumb);
+			TextView title = convertView.findViewById(R.id.title);
 
 			Bitmap bitmz = BitmapFactory.decodeFile(element.image.getAbsolutePath());
 			int width = bitmz.getWidth();

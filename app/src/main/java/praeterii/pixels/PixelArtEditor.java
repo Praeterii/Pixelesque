@@ -55,7 +55,6 @@ public class PixelArtEditor extends PApplet implements TouchListener, Drawer {
 	public final static int EXPORT_SMALL_LONGSIDE = 320;
 	public final static int EXPORT_MEDIUM_LONGSIDE = 640;
 	public final static int EXPORT_LARGE_LONGSIDE = 1080;
-
 	public final static int SHARE_MEDIUM_LONGSIDE = 500;
 
 	public MTManager mtManager;

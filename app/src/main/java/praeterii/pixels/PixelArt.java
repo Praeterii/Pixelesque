@@ -166,20 +166,20 @@ public class PixelArt {
 		this.drawer = drawer;
 	}
 
-	public Bitmap render(PApplet papp) {
-		return renderInternal(papp, width, height);
+	public Bitmap render() {
+		return renderInternal(width, height);
 	}
 	
-	public Bitmap render(PApplet papp, int width, int height) {
+	public Bitmap render(int width, int height) {
 		Log.d("Renderer", "Starting render...");
-		Bitmap  map = renderInternal(papp, this.width, this.height);
+		Bitmap  map = renderInternal(this.width, this.height);
 		Log.d("Renderer", "Done with initial render.");
 		Bitmap scaled = Bitmap.createScaledBitmap(map, width, height, false);
 		Log.d("Renderer", "Scaled.");
 		return scaled;
 	}
 	
-	public Bitmap renderInternal(PApplet papp, int width, int height) {
+	public Bitmap renderInternal(int width, int height) {
 		Bitmap image = Bitmap.createBitmap(width, height, Config.ARGB_8888);
 		
 		float boxsize = getBoxsize(width, height, 1);

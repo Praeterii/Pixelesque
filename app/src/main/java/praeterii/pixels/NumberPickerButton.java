@@ -27,7 +27,7 @@ import praeterii.pixele.R;
 /**
  * This class exists purely to cancel long click events.
  */
-public class NumberPickerButton extends ImageButton {
+public class NumberPickerButton extends android.support.v7.widget.AppCompatImageButton {
 
     private NumberPicker mNumberPicker;
     
